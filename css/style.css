@@ -1,39 +1,158 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
+/* BACKGROUND */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
 .container {
-    width: 400px;
-    margin: 50px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+    width: 420px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 20px;
+    color: #444;
 }
 
+/* FORM BOX */
 form {
+    background: #eaf2ff;
+    padding: 15px;
+    border-radius: 14px;
     display: flex;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
-input, button, select {
-    padding: 5px;
+/* INPUT */
+form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c3d9ff;
+    outline: none;
+    transition: 0.3s;
 }
 
+form input:focus {
+    border-color: #7aa2ff;
+}
+
+/* ADD BUTTON */
+form button {
+    background: #7aa2ff;
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: #5c86f5;
+}
+
+/* FILTER */
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+/* LIST */
 ul {
     list-style: none;
-    padding: 0;
 }
 
 li {
-    background: #eee;
-    margin: 5px 0;
-    padding: 8px;
+    background: #f7f9ff;
+    padding: 12px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    animation: slideIn 0.4s ease;
+}
+
+/* ADD ANIMATION */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* TEXT */
+.todo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-text span {
+    font-size: 14px;
+    color: #666;
+}
+
+/* DELETE BUTTON */
+li button {
+    background: #ff8fa3;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+li button:hover {
+    background: #ff6b88;
+}
+
+/* DELETE ANIMATION */
+li.remove {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
 }

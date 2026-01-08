@@ -6,45 +6,64 @@ const filter = document.getElementById("filter");
 
 let todos = [];
 
-form.addEventListener("submit", function(e) {
+/* ADD TODO */
+form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    if (todoInput.value === "" || dateInput.value === "") {
+    if (todoInput.value.trim() === "" || dateInput.value === "") {
         alert("To-Do dan Tanggal wajib diisi!");
         return;
     }
 
-    const todo = {
+    todos.push({
+        id: Date.now(), // ID unik (PENTING)
         text: todoInput.value,
         date: dateInput.value
-    };
+    });
 
-    todos.push(todo);
     todoInput.value = "";
     dateInput.value = "";
+
     displayTodos();
 });
 
+/* FILTER */
 filter.addEventListener("change", displayTodos);
 
+/* DISPLAY */
 function displayTodos() {
     todoList.innerHTML = "";
 
     const today = new Date().toISOString().split("T")[0];
 
-    todos.forEach((todo, index) => {
-        if (filter.value === "today" && todo.date !== today) return;
+    todos
+        .filter(todo => {
+            if (filter.value === "today") {
+                return todo.date === today;
+            }
+            return true;
+        })
+        .forEach(todo => {
+            const li = document.createElement("li");
 
-        const li = document.createElement("li");
-        li.innerHTML = `
-            ${todo.text} (${todo.date})
-            <button onclick="deleteTodo(${index})">Delete</button>
-        `;
-        todoList.appendChild(li);
-    });
-}
+            li.innerHTML = `
+                <div class="todo-text">
+                    <strong>📝 ${todo.text}</strong>
+                    <span>📅 ${todo.date}</span>
+                </div>
+                <button class="delete-btn">🗑</button>
+            `;
 
-function deleteTodo(index) {
-    todos.splice(index, 1);
-    displayTodos();
+            /* DELETE WITH ANIMATION */
+            li.querySelector(".delete-btn").addEventListener("click", () => {
+                li.classList.add("remove");
+
+                setTimeout(() => {
+                    todos = todos.filter(t => t.id !== todo.id);
+                    displayTodos();
+                }, 400);
+            });
+
+            todoList.appendChild(li);
+        });
 }
